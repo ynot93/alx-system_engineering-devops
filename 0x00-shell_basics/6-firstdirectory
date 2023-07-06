@@ -1,0 +1,2 @@
+#!/bin/bash
+mv first_directory tmp/
