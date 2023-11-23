@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Print Best School 10 times but print Hi on the ninth iteration.
+
+counter=0
+
+while [ $counter -lt 10 ]; do
+    if [ $counter -eq 8 ]; then
+        echo "Best School"
+        echo "Hi"
+    else
+        echo "Best School"
+    fi
+    ((counter++))
+done
