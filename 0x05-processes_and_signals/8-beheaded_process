@@ -3,5 +3,9 @@
 
 p_id=$(pgrep -f 7-highlander)
 
-kill "$p_id"
-echo "Killed"
+if [ -n "$p_id" ]; then
+    kill "$p_id"
+    echo "Killed"
+else
+    echo "Error: 7-highlander process not found"
+fi
