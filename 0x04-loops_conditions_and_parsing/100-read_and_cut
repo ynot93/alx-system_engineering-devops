@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Display information from etc/passwd using while loop
+
+file="/etc/passwd"
+
+if [ -e "$file" ]; then
+    while IFS=: read -r username password uid gid info home shell; do
+        echo "$username:$uid:$home"
+    done < "$file"
+else
+    echo "Error: $file does not exist."
+fi
