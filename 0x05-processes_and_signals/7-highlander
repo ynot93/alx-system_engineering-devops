@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Interrupts a SIGTERM signal
+
+terminate() {
+    echo "I am invincible!!!"
+    exit 0
+}
+
+trap terminate SIGTERM
+
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
