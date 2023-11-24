@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Display IP and status codes from Apache log using awk
+
+log_file="apache-access.log"
+
+if [ -e "$log_file" ]; then
+    awk '{print $1, $9}' "$log_file"
+else
+    echo "Error: $log_file does not exist"
+fi
