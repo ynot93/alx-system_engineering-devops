@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Group visitors by IP and status codes from apache log using awk
+
+log_file="apache-access.log"
+
+if [ -e "$log_file" ]; then
+    awk '{count[$1" "$9]++} END {for (key in count) print count[key], key}' "$log_file" | sort -nr
+else
+    echo "Error: $log_file does not exist."
+fi
