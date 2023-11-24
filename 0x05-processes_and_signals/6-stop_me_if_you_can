@@ -2,3 +2,4 @@
 # Uses pkill to stop the process
 
 pkill -f "4-to_infinity_and_beyond.sh"
+echo "Terminated"
