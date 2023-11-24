@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 # Manages processes
 
-PATH="./manage_my_process"
+FILE_PATH="./manage_my_process"
 FILE="var/run/my_process.pid"
 
 start_process() {
-    $PATH &
+    $FILE_PATH &
     echo $! > "FILE"
     echo "manage_my_process started"
 }
 
 stop_process() {
-    p_id=(cat "$FILE")
+    p_id=$(cat "$FILE")
     kill "$p_id"
     rm "$FILE"
     echo "manage_my_process stopped"
