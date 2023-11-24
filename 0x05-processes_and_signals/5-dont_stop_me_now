@@ -5,6 +5,7 @@ p_id=$(pgrep -f "4-to_infinity_and_beyond.sh")
 
 if [ -n "$p_id" ]; then
     kill "$p_id"
+    echo "Terminated"
 else
     echo "process not found"
 fi
