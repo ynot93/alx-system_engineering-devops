@@ -3,7 +3,6 @@
 
 terminate() {
     echo "I am invincible!!!"
-    exit 0
 }
 
 trap terminate SIGTERM
