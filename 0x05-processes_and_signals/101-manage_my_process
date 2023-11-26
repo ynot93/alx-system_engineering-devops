@@ -2,11 +2,11 @@
 # Manages processes
 
 FILE_PATH="./manage_my_process"
-FILE="var/run/my_process.pid"
+FILE="/var/run/my_process.pid"
 
 start_process() {
     $FILE_PATH &
-    echo $! > "FILE"
+    echo $! > "$FILE"
     echo "manage_my_process started"
 }
 
@@ -18,8 +18,11 @@ stop_process() {
 }
 
 restart_process() {
-    stop_process
-    start_process
+    p_id=$(cat "$FILE")
+    kill "$p_id"
+    rm "$FILE"
+    $FILE_PATH &
+    echo $! > "$FILE"
     echo "manage_my_process restarted"
 }
 
@@ -34,7 +37,7 @@ case "$1" in
         restart_process
         ;;
     *)
-        echo "Usage: $0 {start|stop|restart}"
+        echo "Usage: manage_my_process {start|stop|restart}"
         exit 1
         ;;
 esac
