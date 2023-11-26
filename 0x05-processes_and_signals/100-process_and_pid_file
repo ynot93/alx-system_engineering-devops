@@ -2,7 +2,9 @@
 # Process and PID file
 
 handle_sigterm() {
+    rm /var/run/myscript.pid
     echo "I hate the kill command"
+    exit 0
 }
 
 handle_sigint() {
