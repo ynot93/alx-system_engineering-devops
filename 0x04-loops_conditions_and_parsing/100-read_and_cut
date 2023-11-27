@@ -4,7 +4,7 @@
 file="/etc/passwd"
 
 if [ -e "$file" ]; then
-    while IFS=: read -r username password uid gid info home shell; do
+    while IFS=: read -r username _password uid _gid _info home _shell; do
         echo "$username:$uid:$home"
     done < "$file"
 else
