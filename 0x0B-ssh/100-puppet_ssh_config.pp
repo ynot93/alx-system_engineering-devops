@@ -1,15 +1,11 @@
-# Turn off password authentication
-augeas { 'Turn off passwd auth':
-  context => '~/.ssh/config',
-  changes => [
-    'set PasswordAuthentication no',
-  ],
-}
+# Turn off password authentication and
+# specify private key file to use
 
-# Specify private key file
-augeas { 'Declare identity file':
-  context => '~/.ssh/config',
-  changes => [
-    'set IdentityFile ~/.ssh/school',
-  ],
+file { '/etc/ssh/ssh_config':
+  ensure  => present,
+  content => "
+    Host *
+      IdentifyFile ~/.ssh/school
+      PasswordAuthentication no
+  ",
 }
