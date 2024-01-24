@@ -4,12 +4,8 @@
 apt-get updtate
 apt-get install -y nginx
 
-echo "<html><body><h1>Hello World!</h1></body></html>" > /usr/share/nginx/html/index.html
+echo "Hello World!" > /var/www/html/index.html
 
 # Start Nginx
 /usr/sbin/nginx
 
-response=$(curl -s -I http://localhost)
-
-if [[ $response = *""200 OK"* ]]; then
-    echo "Nginx is running"

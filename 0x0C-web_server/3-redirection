@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Install Nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
+echo "Hello World!" > /var/www/html/index.html
+
+# Create redirection file configuration
+echo "server {
+    listen 80;
+    
+    server_name _;
+
+    location redirect_me {
+        return 301 https://github.com/ynot93/;
+    }
+
+    # Additional serever configuration
+}" | sudo tee /etc/nginx/sites-available/redirect_me
+
+#Symbolic link to enable site
+sudo ln -s /etc/nginx/sites-available/redirect_me /etc/nginx/sites-enabled
+
+#Remove default server configuration
+sudo rm /etc/nginx/sites-enabled/default
+
+# Restart Nginx to apply changes
+sudo service nginx restart
