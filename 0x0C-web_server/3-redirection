@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Install Nginx
 sudo apt-get update
 sudo apt-get install -y nginx
@@ -16,7 +15,7 @@ new_block = "server {
         return 301 https://github.com/ynot93/;
     }
 
-    # Additional serever configuration
+    # Additional server configuration
 }"
 
 sudo sed -i "/server_name _;/c\\$new_block" /etc/nginx/sites-enabled/default
