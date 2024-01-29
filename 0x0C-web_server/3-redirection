@@ -6,7 +6,7 @@ sudo apt-get install -y nginx
 echo "Hello World!" > /var/www/html/index.html
 
 # Create redirection file configuration
-new_block = "server {
+new_block="server {
     listen 80;
     
     server_name _;
