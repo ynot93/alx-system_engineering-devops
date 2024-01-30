@@ -8,8 +8,8 @@ package { 'nginx':
 file_line { 'redirect':
   ensure => present,
   path   => '/etc/nginx/sites-available/default',
-  after  => 'listen 80 default server',
-  line   => 'rewrite ^redirect_me https://www.github.com/tony93/ permanent',
+  after  => 'listen 80 default_server;',
+  line   => 'rewrite ^redirect_me https://www.github.com/tony93/ permanent;',
 }
 
 # Enable the 301 page
@@ -30,5 +30,5 @@ service { 'nginx':
   ensure    => running,
   enable    => true,
   subscribe => File['/etc/nginx/sites-enabled/default'],
-  require   => Package['nginx']
+  require   => Package['nginx'],
 }
