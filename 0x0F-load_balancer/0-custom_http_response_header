@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Customizes a 404 error page
+
+# Install Nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
+echo "Hello World!" > /var/www/html/index.html
+
+# Create redirection file configuration
+new_text="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/ynot93\/ permanent;"
+sudo sed -i "s/server_name _;/$new_text/" /etc/nginx/sites-enabled/default
+
+echo "Ceci n'est pas une page" > /var/www/html/custom404.html
+
+# Create a 404 eror page
+new_text="listen 80 default_server;\n\terror_page 404 \/custom404.html;\n\tlocation = \/custom404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+sudo sed -i "s/listen 80 default_server;/$new_text/" /etc/nginx/sites-enabled/default
+
+# Restart Nginx to apply changes
+sudo service nginx restart
