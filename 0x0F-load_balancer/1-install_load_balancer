@@ -10,7 +10,6 @@ server_configuration=\
 "
 frontend tonymputhia.tech_frontend
         bind *:80
-        mode http
         default_backend tonymputhia.tech_backend
 backend tonymputhia.tech_backend
         balance roundrobin
@@ -18,12 +17,6 @@ backend tonymputhia.tech_backend
         server 476642-web-02 54.90.5.67:80 check
 "
 echo "$server_configuration" | sudo tee -a /etc/haproxy/haproxy.cfg
-
-# enable haproxy to be started by init script
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
-
-# Testing the HAproxy configuration file
-sudo haproxy -c -f /etc/haproxy/haproxy.cfg
 
 # Restart the HAProxy service
 sudo service haproxy restart
