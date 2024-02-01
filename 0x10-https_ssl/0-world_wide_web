@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Configure domain zone
+
+# Function to display subdomain information
+display_info() {
+    local subdomain=$1
+    local domain=$2
+    local record_type=$(dig +short $subdomain.$domain | awk '{print toupper($1)}')
+    local destination=$(dig +short $subdomain.$domain)
+
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+}
+
+# Default subdomains
+subdomains=("www" "lb-01" "web-01" "web-02")
+
+# If both domain and subdomain are provided
+if [ "$#" -eq 2 ]; then
+    display_info $2 $1
+else
+    # Display information for default subdomains
+    for subdomain in "${subdomains[@]}"; do
+        display_info $subdomain $1
+    done
+fi
+
