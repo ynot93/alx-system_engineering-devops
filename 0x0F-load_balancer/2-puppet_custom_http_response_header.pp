@@ -5,11 +5,17 @@ package { 'nginx':
   ensure  => 'installed',
 }
 
+# Create an index page
+file { 'var/www/html/index.html':
+  ensure  => 'present',
+  content => 'Hello World!',
+}
+
 # Define custom header configuration
-$custom_header_config = "server_name _;\n\t add_header X-Served-By $hostname;"
+$custom_header_config = "server_name _;\n\tadd_header X-Served-By $hostname;"
 
 # Create custom 404 page
-file { '/var/www/html/404.html':
+file { '/var/www/html/custom404.html':
   content => "Ceci n'est pas une page\n",
   ensure  => present,
 }
