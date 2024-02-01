@@ -13,9 +13,10 @@ sudo sed -i "s/server_name _;/$new_text/" /etc/nginx/sites-enabled/default
 
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom404.html
 
-sudo sed -i "s/server_name _/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+header="server_name _;\n\tadd_header X-Served-By "$HOSTNAME";"
+sudo sed -i "s/server_name _;/$header/" /etc/nginx/sites-enabled/default
 
-# Create a 404 eror page
+# Create a 404 error page
 new_text="listen 80 default_server;\n\terror_page 404 \/custom404.html;\n\tlocation = \/custom404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
 sudo sed -i "s/listen 80 default_server;/$new_text/" /etc/nginx/sites-enabled/default
 
