@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Generate mysql dump and create compressed archive
 
 PASSWORD="$1"
