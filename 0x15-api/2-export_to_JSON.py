@@ -3,9 +3,9 @@
 Gathers data about an employee from a RESTful API
 
 """
+import json
 import requests
 import sys
-import json
 
 
 def get_employee_progress_data(employee_id):
@@ -21,6 +21,7 @@ def get_employee_progress_data(employee_id):
     employee_response = requests.get(user_url)
     employee_data = employee_response.json()
     employee_name = employee_data.get('name')
+    employee_username = employee_data.get('username')
 
     """Get TODO list data of the employee"""
     todo_response = requests.get(todos_url)
@@ -39,7 +40,7 @@ def get_employee_progress_data(employee_id):
         json_data.get(employee_id).append({
             'task': todo.get('title'),
             'completed': todo.get('completed'),
-            'username': employee_name
+            'username': employee_username
         })
 
     """Write JSON data to file"""
