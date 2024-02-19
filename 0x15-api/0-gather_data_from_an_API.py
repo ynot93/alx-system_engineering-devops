@@ -37,10 +37,9 @@ def get_employee_progress_data(employee_id):
             f"Employee {employee_name} is done with tasks"
             f"({completed_tasks}/{total_tasks}):"
     )
-    print(f"\t {employee_name}")
-    print(f"\t {completed_tasks}")
-    print(f"\t {total_tasks}")
-
+    for todo in todo_data:
+        if todo.get('completed') is True:
+            print(f"\t {todo.get('title')}")
 
 if __name__ == "__main__":
     employee_id = int(sys.argv[1])
