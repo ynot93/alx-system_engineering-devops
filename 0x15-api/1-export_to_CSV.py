@@ -3,9 +3,9 @@
 Gathers data about an employee from a RESTful API
 
 """
+import csv
 import requests
 import sys
-import csv
 
 
 def get_employee_progress_data(employee_id):
@@ -20,7 +20,7 @@ def get_employee_progress_data(employee_id):
     """Get employee's data"""
     employee_response = requests.get(user_url)
     employee_data = employee_response.json()
-    employee_name = employee_data.get('name')
+    employee_username = employee_data.get('username')
 
     """Get TODO list data of the employee"""
     todo_response = requests.get(todos_url)
@@ -36,11 +36,11 @@ def get_employee_progress_data(employee_id):
     """Export data to csv"""
     csv_file = f"{employee_id}.csv"
     with open(csv_file, mode='w', newline='') as csvfile:
-        csv_writer = csv.writer(csvfile, quoting=csv.QUOTE_NONNUMERIC)
+        csv_writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
         for todo in todo_data:
             csv_writer.writerow([
                 employee_id,
-                employee_name,
+                employee_username,
                 todo.get('completed'),
                 todo.get('title')
             ])
