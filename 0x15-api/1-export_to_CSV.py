@@ -35,8 +35,8 @@ def get_employee_progress_data(employee_id):
 
     """Export data to csv"""
     csv_file = f"{employee_id}.csv"
-    with open(csv_file, mode='w', newline='', quoting=csv.QUOTE_NONNUMERIC) as csvfile:
-        csv_writer = csv.writer(csvfile)
+    with open(csv_file, mode='w', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile, quoting=csv.QUOTE_NONNUMERIC)
         for todo in todo_data:
             csv_writer.writerow([
                 employee_id,
