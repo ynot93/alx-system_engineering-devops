@@ -5,6 +5,7 @@ Use recursion to fetch hot posts from reddit
 """
 import requests
 
+
 def recurse(subreddit, hot_list=None, after=None):
     if hot_list is None:
         hot_list = []
