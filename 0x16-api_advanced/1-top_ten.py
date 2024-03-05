@@ -1,8 +1,9 @@
 #!/bin/python3
 import requests
 
+
 def top_ten(subreddit):
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
     headers = {"User-Agent": "MyRedditApp/1.0"}
 
     response = requests.get(url, headers=headers)
