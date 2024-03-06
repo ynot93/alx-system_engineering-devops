@@ -2,7 +2,6 @@
 """
 Prints a sorted count of given keywords from title of
 hot articles
-
 """
 import requests
 

@@ -1,4 +1,8 @@
-#!/bin/python3
+#!/usr/bin/python3
+"""
+Print title of first 10 hot posts
+
+"""
 import requests
 
 
