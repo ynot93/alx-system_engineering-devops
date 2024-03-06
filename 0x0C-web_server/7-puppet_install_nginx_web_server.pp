@@ -1,31 +1,32 @@
-# Install a nginx web server with Puppet
-# Install nginx
+# Puppet manifest to install and configure Nginx with a 301 redirect
+
+# Install Nginx package
 package { 'nginx':
   ensure => installed,
 }
 
-# Configure redirect
-file_line { 'redirect':
+# Configure Nginx site
+file_line { 'redirect_config':
   ensure => present,
   path   => '/etc/nginx/sites-available/default',
   after  => 'listen 80 default_server;',
-  line   => 'rewrite ^redirect_me https://www.github.com/tony93/ permanent;',
+  line   => 'rewrite ^/redirect_me https://www.github.com/millyanne93 permanent;',
 }
 
-# Enable the 301 page
-file { '/etc/nginx/sites-available/default':
-  ensure  => link,
-  target  => '/etc/nginx/sites-available/default',
-  require => File_line['redirect'],
+# Enable the Nginx site
+file { '/etc/nginx/sites-enabled/default':
+  ensure => link,
+  target => '/etc/nginx/sites-available/default',
+  require => File_line['redirect_config'],
 }
 
-# Create the Hello World page
+# Create index.html with "Hello World!"
 file { '/var/www/html/index.html':
   content => 'Hello World!',
-  require => Package ['nginx'],
+  require => Package['nginx'],
 }
 
-# Restart nginx server
+# Restart Nginx service
 service { 'nginx':
   ensure    => running,
   enable    => true,
