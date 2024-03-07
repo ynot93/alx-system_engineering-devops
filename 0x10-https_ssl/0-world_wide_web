@@ -1,26 +1,16 @@
 #!/usr/bin/env bash
-# Configure domain zone
+# print domains and subdomains
 
-# Function to display subdomain information
-display_info() {
-    local subdomain=$1
-    local domain=$2
-    local record_type=$(dig +short $subdomain.$domain | awk '{print toupper($1)}')
-    local destination=$(dig +short $subdomain.$domain)
-
-    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+print_domain_subdomain () {
+    dig "$1" | grep -A1 'ANSWER SECTION:' | sed -r "s/$1./$2/g" | awk -F" " ' NR==2 { print "The subdomain " $1 " is a " $4 " record and points to " $5 }'
 }
 
-# Default subdomains
-subdomains=("www" "lb-01" "web-01" "web-02")
-
-# If both domain and subdomain are provided
-if [ "$#" -eq 2 ]; then
-    display_info $2 $1
+if [ "$#" -eq 2 ]
+then
+    print_domain_subdomain "$2.$1" "$2"
 else
-    # Display information for default subdomains
-    for subdomain in "${subdomains[@]}"; do
-        display_info $subdomain $1
-    done
+    print_domain_subdomain "www.$1" "www"
+    print_domain_subdomain "lb-01.$1" "lb-01"
+    print_domain_subdomain "web-01.$1" "web-01"
+    print_domain_subdomain "web-02.$1" "web-02"
 fi
-
