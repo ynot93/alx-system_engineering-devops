@@ -1,25 +1,31 @@
 #!/usr/bin/python3
 """
-Returns total number of subscribers for a subreddit.
-Return 0 if invalid subreddit is given.
+Queries the Reddit API
 
 """
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """get total number of subscribers"""
+    """
+    Gets the number of subscribers of a subreddit.
 
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+    """
+    try:
+        response = requests.get(
+            f"https://www.reddit.com/r/{subreddit}/about.json",
+            headers={"User-Agent": "GetSubscriberCount"},
+            allow_redirects=False
+        )
+        response.raise_for_status()
 
-    headers = {'User-Agent': 'TonyMputhia (by /u/Y_Not93)'}
+        data = response.json().get('data')
 
-    response = requests.get(url, headers=headers)
-    print(response.text)
+        if data and 'subscribers' in data:
+            return data['subscribers']
+        else:
+            return 0
 
-    if response.status_code == 200:
-        data = response.json()
-        subscribers = ['data']['subscribers']
-        return subscribers
-    else:
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
         return 0
